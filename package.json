@@ -4,8 +4,9 @@
   "description": "Statistics tool for Aeneas blockchain",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "flow": "flow",
+    "start": "node src/main.js",
+    "test": "mocha"
   },
   "keywords": [
     "stats",
@@ -17,5 +18,10 @@
   "dependencies": {
     "args": "^5.0.0",
     "d3": "^5.8.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.91.0",
+    "flow-remove-types": "^1.2.3",
+    "mocha": "^5.2.0"
   }
 }
