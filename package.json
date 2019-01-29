@@ -1,0 +1,21 @@
+{
+  "name": "aeneasstats",
+  "version": "0.0.1",
+  "description": "Statistics tool for Aeneas blockchain",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stats",
+    "Aeneas",
+    "blockchain"
+  ],
+  "author": "Fly-Style",
+  "license": "MIT",
+  "dependencies": {
+    "args": "^5.0.0",
+    "d3": "^5.8.0"
+  }
+}
