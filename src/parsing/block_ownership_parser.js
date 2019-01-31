@@ -8,7 +8,12 @@ class BlockOwnershipParser extends parser.AbstractParser {
     super();
     this.path = logPath;
   }
-  // TODO: implement parsing.
+  static inputBlocksRegex = "[0-9]+\/[0-9]+\s[0-9]{2}:[0-9]{2}:[0-9]{2}\sINFO\s\[lt\-dispatcher\-[0-9]+\]\sw\." + 
+                            "AeneasWallet\s0\sAE\swas\sextracted\sas IN\sfrom\sblock\s#[0-9]+" 
+
+  parse() {
+    // TODO: implement
+  }
 }
 
 module.exports.BlockOwnershipParser = BlockOwnershipParser;
