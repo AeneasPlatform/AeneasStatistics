@@ -1,3 +1,5 @@
+'use strict'
+
 const assert = require('assert')
 const fs = require('fs')
 const fileOperations = require('../src/file_ops')

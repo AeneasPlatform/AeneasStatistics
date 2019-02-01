@@ -4,9 +4,8 @@
   "description": "Statistics tool for Aeneas blockchain",
   "main": "main.js",
   "scripts": {
-    "flow": "flow",
     "start": "node src/main.js",
-    "test": "mocha"
+    "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
     "stats",
@@ -20,8 +19,8 @@
     "d3": "^5.8.0"
   },
   "devDependencies": {
-    "flow-bin": "^0.91.0",
-    "flow-remove-types": "^1.2.3",
-    "mocha": "^5.2.0"
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.1"
   }
 }
