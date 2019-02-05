@@ -32,3 +32,5 @@ exports.writeToFile = (record, fileName) => {
 exports.appendToFile = (record, fileName) => {
   fs.appendFileSync(fileName, record.toString());
 }
+
+exports.dummy = () => {console.log("Hello, world!")}

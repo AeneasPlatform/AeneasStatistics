@@ -1,10 +1,13 @@
 'use strict'
 
-const args = require('args')
+const argums = require('args')
+const file_ops = require('../src/file_ops')
 
 function main() {
-  const flags = args.parse(process.argv)
-  console.log(flags);
+  argums.command('hello', 'Say hello', () => {
+    console.log("Hello World");
+  });
+  console.log(argums.details);
 }
 
 main();

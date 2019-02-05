@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node src/main.js",
+    "ownership": "node src/main.js hello",
     "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
@@ -16,11 +17,21 @@
   "license": "MIT",
   "dependencies": {
     "args": "^5.0.0",
-    "d3": "^5.8.0"
+    "d3": "^5.8.0",
+    "hyper-one-dark-vivid": "^1.0.0"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^5.2.0",
     "power-assert": "^1.6.1"
+  },
+  "bin": "src/main.js",
+  "pkg": {
+    "sctipts": [
+      "src/*.js"
+    ],
+    "targets": [
+      "node10"
+    ]
   }
 }
