@@ -15,6 +15,7 @@ class BlockOwnershipParser extends parser.AbstractParser {
   }
 
   /**
+   * 
    * Synchronous parsing of .log file. It extracts numbers of all blocks which was extracted as mined.
    * @return blockNumbers : Array[String]
    */

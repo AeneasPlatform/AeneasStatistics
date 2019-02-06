@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node src/main.js",
-    "ownership": "node src/main.js hello",
+    "ownership-correlation": "node src/main.js ownership-correlation",
+    "compare-ownership": "node src/main.js compare-ownership",
     "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
@@ -17,8 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "args": "^5.0.0",
-    "d3": "^5.8.0",
-    "hyper-one-dark-vivid": "^1.0.0"
+    "d3-node": "^2.1.0"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",

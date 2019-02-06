@@ -33,4 +33,6 @@ exports.appendToFile = (record, fileName) => {
   fs.appendFileSync(fileName, record.toString());
 }
 
-exports.dummy = () => {console.log("Hello, world!")}
+exports.exists = (fileName) => {
+  return fs.existsSync(fileName);
+}
