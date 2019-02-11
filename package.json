@@ -4,9 +4,10 @@
   "description": "Statistics tool for Aeneas blockchain",
   "main": "main.js",
   "scripts": {
-    "flow": "flow",
     "start": "node src/main.js",
-    "test": "mocha"
+    "ownership-correlation": "node src/main.js ownership-correlation",
+    "compare-ownership": "node src/main.js compare-ownership",
+    "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
     "stats",
@@ -17,11 +18,20 @@
   "license": "MIT",
   "dependencies": {
     "args": "^5.0.0",
-    "d3": "^5.8.0"
+    "d3-node": "^2.1.0"
   },
   "devDependencies": {
-    "flow-bin": "^0.91.0",
-    "flow-remove-types": "^1.2.3",
-    "mocha": "^5.2.0"
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.1"
+  },
+  "bin": "src/main.js",
+  "pkg": {
+    "sctipts": [
+      "src/*.js"
+    ],
+    "targets": [
+      "node10"
+    ]
   }
 }
