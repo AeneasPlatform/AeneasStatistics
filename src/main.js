@@ -15,19 +15,8 @@ function main() {
       const result1 = ownership_parser.BlockOwnershipParser(firstPath).parseCorrectMined();
       const result2 = ownership_parser.BlockOwnershipParser(secondPath).parseCorrectMined();
       const diff = array_ops.arrayIntersection(result1, result2);
-    } else {  // unlikely for branch predictor
-      throw new Error("Some file does not exists");
-    }
-  });
-  argums.command('compare-ownership', 
-                 'Creates a plot which demonstrates lost or redundant blocks', 
-                 (name, sub, options) => {
-    const firstPath = sub[0]; 
-    const secondPath = sub[1]; 
-    if(file_ops.exists(firstPath) && file_ops.exists(secondPath)) {
-      const result1 = ownership_parser.BlockOwnershipParser(firstPath).parseCorrectMined();
-      const result2 = ownership_parser.BlockOwnershipParser(secondPath).parseCorrectMined();
-
+      // TODO: create D3 plot.
+      return diff;
     } else {  // unlikely for branch predictor
       throw new Error("Some file does not exists");
     }

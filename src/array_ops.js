@@ -6,7 +6,6 @@ var exports = module.exports = {};
  * Intersects two arrays into result array.
  * @param first - first checked array.   Expected type is Array[Int].
  * @param second - second checked array. Expected type is Array[Int].
- * @param sortIsPossible - optional parameter, allows input array sort. 
  * Algorithm complexity is : memory : O(log(N) * N) and time : O(N).
  * @returns sorted(!) array with unique elements which exists in both arrays.
  */
