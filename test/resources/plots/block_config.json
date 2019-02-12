@@ -1,0 +1,9 @@
+{
+  "width" : 1200,
+  "height" : 1000,
+  "barColor" : "steelblue",
+  "barHoverColor" : "brown",
+  "selector"  : "#chart",
+  "container" : "<div id=\"container\"><h2>Bar Chart</h2><div id=\"chart\"></div></div>",
+  "svgStyles" : ".bar { fill: \"steelblue\" } .bar:hover { fill: \"brown\" }"
+}

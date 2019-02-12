@@ -4,11 +4,14 @@ const argums = require('args')
 const file_ops = require('../src/file_ops')
 const array_ops = require('../src/array_ops')
 const ownership_parser = require('../src/parsing/block_ownership_parser')
+const dist_builder = require('../src/plots/block_ownership_builder')
 
 function main() {
+  
   argums.command('ownership-correlation', 
                  'Creates a plot which demonstrates correlation of block ownership between different logs', 
                  (name, sub, options) => {
+    console.log(name + " __ " + sub);
     const firstPath = sub[0]; 
     const secondPath = sub[1]; 
     if(file_ops.exists(firstPath) && file_ops.exists(secondPath)) {
@@ -21,6 +24,26 @@ function main() {
       throw new Error("Some file does not exists");
     }
   });
+  argums.command('block-balance-plot', 
+                 'Creates two plots where blocks and balances distribution will be demonstrated', 
+                 (name, sub, options) => {
+    const csvFilePath = sub[0]; 
+    const configPath = sub[1] == '' ? 'test/resources/plots/block_config.json' : sub[1];
+
+    const config = JSON.parse(file_ops.readFile(configPath));
+    if (dist_builder.BlockDistributionBuilder.validateConfig(config))
+      throw new Error("Config parsing error.");
+    
+    if(file_ops.exists(csvFilePath)) {
+      const builder = new dist_builder.BlockDistributionBuilder(csvFilePath, config);
+      const data = builder.transformData();
+      file_ops.writeToFile(builder.buildPlot(), `results/report-${Math.random() * 100}.html`);
+    } else {  // unlikely for branch predictor
+      throw new Error("Some file does not exists");
+    }
+  });
+
+  const flags = argums.parse(process.argv)
 }
 
 main();
