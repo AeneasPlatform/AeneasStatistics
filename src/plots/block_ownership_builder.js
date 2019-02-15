@@ -36,7 +36,7 @@ class BlockDistributionBuilder extends builder.AbstractPlotBuilder {
    */
   transformData() {
     return this.report.data.map(el => {
-      return {address: el.adress,  balance: el.balance}
+      return {address: el.adress.substring(el.adress.length - 5),  balance: el.balance / 100000000}
     });
   }
 
@@ -46,47 +46,42 @@ class BlockDistributionBuilder extends builder.AbstractPlotBuilder {
    */
   buildPlot() {
     console.log(this.config);
+    const margin = 80;
+    const width = 1600 - margin;
+    const height = 1000 - margin;
+
     const d3n = new d3Node({
       selector: this.config.selector,
       svgStyles: this.config.svgStyles,
       container: this.config.container
     });
-  
     const d3 = d3n.d3;
+    const svg = d3n.createSVG(width, height);
 
-    const width = this.config.width;
-    const height = this.config.height;
+    const chart = svg.append('g').attr('transform', `translate(${margin}, ${margin})`);
 
     const data = this.transformData();
   
-    // set the ranges
-    const x = d3.scaleBand().range([0, width]).padding(0.1);
-    const y = d3.scaleLinear().range([height, 0]);
+    const yScale = d3.scaleLinear()
+                     .range([height - 150, 0])
+                     .domain([0, d3.max(data, d => d.balance)]);
+
+    const xScale = d3.scaleBand()
+                     .range([0, width - 100])
+                     .domain(data.map(s => s.address))
+                     .padding(0.3);
+
+    chart.append('g').attr('transform', `translate(20, 0)`).call(d3.axisLeft(yScale));
+    chart.append('g').attr('transform', `translate(20, ${height - 150})`).call(d3.axisBottom(xScale));
   
-    const svg = d3n.createSVG(width, height)
-      .append('g')
-      .attr('transform', 'translate(10, 10)');
-  
-    x.domain(data.map(d => d.adress));
-    y.domain([0, d3.max(data, d => d.balance)]);
-  
-    // append the rectangles for the bar chart
-    svg.selectAll('.bar')
-        .data(data)
-        .enter().append('rect')
-        .attr('class', 'bar')
-        .attr('x', (d) => x(d.adress))
-        .attr('width', x.bandwidth())
-        .attr('y', (d) => y(d.balance))
-        .attr('height', (d) => height - y(d.balance));
-  
-    // add the x Axis
-    svg.append('g')
-        .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(x));
-  
-    // add the y Axis
-    svg.append('g').call(d3.axisLeft(y));
+    chart.selectAll()
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('x', (s) => xScale(s.address) + xScale.bandwidth() / 2.5) // TODO : wrap '30' to dependent function 
+    .attr('y', (s) => yScale(s.balance))
+    .attr('height', (s) => height - yScale(s.balance) - 150)
+    .attr('width', xScale.bandwidth())
   
     return d3n.html();
   }

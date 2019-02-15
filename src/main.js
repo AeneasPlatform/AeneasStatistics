@@ -37,7 +37,7 @@ function main() {
     if(file_ops.exists(csvFilePath)) {
       const builder = new dist_builder.BlockDistributionBuilder(csvFilePath, config);
       const data = builder.transformData();
-      file_ops.writeToFile(builder.buildPlot(), `results/report-${Math.random() * 100}.html`);
+      file_ops.writeToFile(builder.buildPlot(), "report.html");
     } else {  // unlikely for branch predictor
       throw new Error("Some file does not exists");
     }

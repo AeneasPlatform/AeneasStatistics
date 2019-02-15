@@ -7,7 +7,7 @@
     "start": "node src/main.js",
     "ownership-correlation": "node src/main.js ownership-correlation",
     "balance-block": "node src/main.js block-balance-plot",
-    "balance-block-typical": "node src/main.js block-balance-plot test/resources/plots/big_balances_bundle.csv test/resources/plots/block_config.json",
+    "balance-block-typical": "node src/main.js block-balance-plot test/resources/plots/small_balances_bundle.csv test/resources/plots/block_config.json",
     "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
