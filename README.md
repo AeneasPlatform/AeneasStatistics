@@ -1,7 +1,7 @@
 ## Statistics analysis tool for Aeneas blockchain
 
 ### How to use
-Usage: ```aeneasstats [options] [command]```
+Usage: ```./aeneasstats [options] [command]```
 
 #### Commands:
 ```
@@ -11,8 +11,13 @@ help                    Display help
 ownership-correlation   Creates a plot which demonstrates correlation of block ownership between different logs
 version                 Display version
 ```
+
 #### Options:
 ```
   -h, --help     Output usage information
   -v, --version  Output the version number
 ```
+
+**Launch example**
+
+`./aeneasstats balance-address-plot balances_bundle.csv default sorted`
