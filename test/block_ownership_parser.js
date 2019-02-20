@@ -4,8 +4,6 @@ const assert = require('assert')
 const blockOwnership = require('../src/parsing/block_ownership_parser')
 const fs = require('fs')
 
-// 6267 - 3324 = 2943
-
 describe('BlockOwnershipParser', () => {
   describe('#parseCorrectMined()', () => {
     it('Should open existing file, read all blocks info and return array with size 111', () => {

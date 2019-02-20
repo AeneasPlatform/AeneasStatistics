@@ -1,9 +1,14 @@
 'use strict'
 
-const fs = require('fs')
-const fileOperations = require('../file_ops')
-const parser = require('./abstract_parser')
+const fs = require('fs');
+const fileOperations = require('../file_ops');
+const parser = require('./abstract_parser');
 
+/**
+ * Parser entity of Aeneas logs.
+ * @class BlockOwnershipParser
+ * @param logPath : String.
+ */
 class BlockOwnershipParser extends parser.AbstractParser {
   constructor(logPath) {
     super();
