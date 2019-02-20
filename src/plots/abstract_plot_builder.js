@@ -7,7 +7,9 @@ class AbstractPlotBuilder {
     }
   }
 
-  buildPlot() {return undefined;}
+  buildPlot() {
+    throw new TypeError("Cannot build plot because buildPlot doesn't implemented");
+  }
 };
 
 module.exports.AbstractPlotBuilder = AbstractPlotBuilder;

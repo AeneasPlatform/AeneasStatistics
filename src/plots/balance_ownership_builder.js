@@ -7,7 +7,7 @@ const d3Node     = require('d3-node')
 
 /**
  * 
- * @class BlockDistributionBuilder
+ * @class BalanceDistributionBuilder
  * @param {string} reportPath : path to CSV report file.
  * @param {object} config : valid configuration of plot details. 
  */
@@ -15,7 +15,7 @@ class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
   constructor(reportPath, config) {
     super();
     this.reportPath = reportPath;
-    this.report = csv_parser.parse(file_ops.readFile(reportPath), {header: true}); // map it to pairs [address -> balance]
+    this.report = csv_parser.parse(file_ops.readFile(reportPath), {header: true}); // map it to pairs [address -> block]
     this.config = config;
   }
 
@@ -42,6 +42,7 @@ class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
 
   /**
    * Creates the html doctument with address -> balance plot.
+   * @param {boolean} sorted - trigger to sort collection (descending order)
    * @returns {string} 
    */
   buildPlot(sorted) {

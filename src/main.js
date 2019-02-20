@@ -8,7 +8,16 @@ const balance_builder = require('../src/plots/balance_ownership_builder')
 const block_builder = require('../src/plots/mined_block_ownership_builder')
 
 function main() {
-  
+  const defaultConfig = {
+    width : 1200,
+    height : 1000,
+    barColor : "steelblue",
+    barHoverColor : "brown",
+    selector  : "#chart",
+    container : "<div id=\"container\"><h2>Bar Chart</h2><div id=\"chart\"></div></div>",
+    svgStyles : ".bar { fill: \"steelblue\" } .bar:hover { fill: \"brown\" }"
+  }
+
   argums.command('ownership-correlation', 
                  'Creates a plot which demonstrates correlation of block ownership between different logs', 
                  (name, sub, options) => {
@@ -26,13 +35,19 @@ function main() {
     }
   });
   argums.command('balance-address-plot', 
-                 'Creates two plots where blocks and balances distribution will be demonstrated', 
+                 '[path to csv report] ' + 
+                 '[path to config / \'default\'] ' +  
+                 '[sorted] (if you want to see sorted plots, optional)', 
                  (name, sub, options) => {
     const csvFilePath = sub[0]; 
-    const configPath = sub[1] == '' ? 'test/resources/plots/block_config.json' : sub[1];
+    const configPath = sub[1];
     const sorted = sub[2] == 'sorted';
 
-    const config = JSON.parse(file_ops.readFile(configPath));
+    let config = undefined;
+    if (configPath != 'default') {
+      config = JSON.parse(file_ops.readFile(configPath));
+    } else config = defaultConfig;
+
     if (balance_builder.BalanceDistributionBuilder.validateConfig(config))
       throw new Error("Config parsing error.");
     
@@ -43,16 +58,22 @@ function main() {
     } else {  // unlikely for branch predictor
       throw new Error("Some file does not exists");
     }
+    console.log('HTML report successfully created');
   });
   argums.command('block-address-plot', 
-                 'Creates two plots where blocks and balances distribution will be demonstrated', 
+                '[path to csv report] ' + 
+                '[path to config / \'default\'] ' +  
+                '[sorted] (if you want to see sorted plots, optional)', 
                  (name, sub, options) => {
     const csvFilePath = sub[0]; 
-    const configPath = sub[1] == '' ? 'test/resources/plots/block_config.json' : sub[1];
+    const configPath = sub[1] ;
     const sorted = sub[2] == 'sorted';
 
-    const config = JSON.parse(file_ops.readFile(configPath));
-    if (block_builder.MinedBlockDistributionBuilder.validateConfig(config))
+    let config = undefined;
+    if (configPath != 'default') {
+      config = JSON.parse(file_ops.readFile(configPath));
+    } else config = defaultConfig;
+    if (balance_builder.BalanceDistributionBuilder.validateConfig(config))
       throw new Error("Config parsing error.");
     
     if(file_ops.exists(csvFilePath)) {
@@ -62,6 +83,7 @@ function main() {
     } else {  // unlikely for branch predictor
       throw new Error("Some file does not exists");
     }
+    console.log('HTML report successfully created');
   });
 
   const flags = argums.parse(process.argv)

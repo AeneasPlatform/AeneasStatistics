@@ -5,13 +5,18 @@ const file_ops   = require('../file_ops')
 const csv_parser = require('papaparse')
 const d3Node     = require('d3-node')
 
+/**
+ * @class MinedBlockDistributionBuilder
+ * @param {string} reportPath : path to CSV report file.
+ * @param {object} config : valid configuration of plot details. 
+ */
 class MinedBlockDistributionBuilder extends balance_builder.BalanceDistributionBuilder {
   constructor(reportPath, config) {
     super(reportPath, config);
   }
 
   /**
-   * Transform parsing data to {address -> balance} pair collection.
+   * Transform parsing data to {address -> blocks} pair collection.
    * @returns {object}
    */
   transformData() {
@@ -21,7 +26,7 @@ class MinedBlockDistributionBuilder extends balance_builder.BalanceDistributionB
   }
 
   /**
-   * Creates the html doctument with address -> balance plot.
+   * Creates the html doctument with address -> block plot.
    * @returns {string} 
    */
   buildPlot(sorted) {
