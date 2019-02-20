@@ -44,11 +44,10 @@ class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
    * Creates the html doctument with address -> balance plot.
    * @returns {string} 
    */
-  buildPlot() {
-    console.log(this.config);
+  buildPlot(sorted) {
     const margin = 80;
-    const width = 1600 - margin;
-    const height = 1000 - margin;
+    const width = 7200 - margin;
+    const height = 1200 - margin;
 
     const d3n = new d3Node({
       selector: this.config.selector,
@@ -60,7 +59,9 @@ class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
 
     const chart = svg.append('g').attr('transform', `translate(${margin}, ${margin})`);
 
-    const data = this.transformData();
+    let data = this.transformData().filter(el => el.balance > 1000);
+    data = sorted ? data.sort((a, b) => b.balance - a.balance) : data;
+
   
     const yScale = d3.scaleLinear()
                      .range([height - 150, 0])
@@ -69,16 +70,16 @@ class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
     const xScale = d3.scaleBand()
                      .range([0, width - 100])
                      .domain(data.map(s => s.address))
-                     .padding(0.3);
+                     .padding(0.5);
 
     chart.append('g').attr('transform', `translate(20, 0)`).call(d3.axisLeft(yScale));
     chart.append('g').attr('transform', `translate(20, ${height - 150})`).call(d3.axisBottom(xScale));
-  
+    const multiplier = data.length > 40 ? 0.65 : 0.3;
     chart.selectAll()
     .data(data)
     .enter()
     .append('rect')
-    .attr('x', (s) => xScale(s.address) + xScale.bandwidth() / 2.5) // TODO : wrap '30' to dependent function 
+    .attr('x', (s) => xScale(s.address) + xScale.bandwidth() * multiplier)
     .attr('y', (s) => yScale(s.balance))
     .attr('height', (s) => height - yScale(s.balance) - 150)
     .attr('width', xScale.bandwidth())

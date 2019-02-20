@@ -24,11 +24,10 @@ class MinedBlockDistributionBuilder extends balance_builder.BalanceDistributionB
    * Creates the html doctument with address -> balance plot.
    * @returns {string} 
    */
-  buildPlot() {
-    console.log(this.config);
+  buildPlot(sorted) {
     const margin = 80;
-    const width = 1600 - margin;
-    const height = 1000 - margin;
+    const width = 4800 - margin;
+    const height = 1600 - margin;
 
     const d3n = new d3Node({
       selector: this.config.selector,
@@ -39,7 +38,8 @@ class MinedBlockDistributionBuilder extends balance_builder.BalanceDistributionB
     const svg = d3n.createSVG(width, height);
     const chart = svg.append('g').attr('transform', `translate(${margin}, ${margin})`);
 
-    const data = this.transformData().filter(el => el.blocks >= 150);
+    let data = this.transformData().filter(el => el.blocks >= 150);
+    data = sorted ? data.sort((a, b) => b.blocks - a.blocks) : data;
   
     const yScale = d3.scaleLinear()
                      .range([height - 150, 0])
@@ -48,16 +48,16 @@ class MinedBlockDistributionBuilder extends balance_builder.BalanceDistributionB
     const xScale = d3.scaleBand()
                      .range([0, width - 100])
                      .domain(data.map(s => s.address))
-                     .padding(0.2);
+                     .padding(0.3);
 
     chart.append('g').attr('transform', `translate(20, 0)`).call(d3.axisLeft(yScale));
     chart.append('g').attr('transform', `translate(20, ${height - 150})`).call(d3.axisBottom(xScale));
-  
+    const leftShift = data.length > 30 ? 0.27 : 0.25;
     chart.selectAll()
     .data(data)
     .enter()
     .append('rect')
-    .attr('x', (s) => xScale(s.address) + xScale.bandwidth()) // TODO : wrap '30' to dependent function 
+    .attr('x', (s) => xScale(s.address) + xScale.bandwidth() * leftShift) // TODO : wrap '30' to dependent function 
     .attr('y', (s) => yScale(s.blocks))
     .attr('height', (s) => height - yScale(s.blocks) - 150)
     .attr('width', xScale.bandwidth())
