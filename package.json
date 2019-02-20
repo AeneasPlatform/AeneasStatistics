@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node src/main.js",
     "ownership-correlation": "node src/main.js ownership-correlation",
-    "balance-block":        "node src/main.js block-balance-plot",
+    "balance-block": "node src/main.js block-balance-plot",
     "balance-address-plot": "node src/main.js balance-address-plot",
     "balance": "node src/main.js balance-address-plot test/resources/plots/big_balances_bundle.csv test/resources/plots/block_config.json sorted",
-    "block":   "node src/main.js block-address-plot   test/resources/plots/big_balances_bundle.csv test/resources/plots/block_config.json sorted",
+    "block": "node src/main.js block-address-plot   test/resources/plots/big_balances_bundle.csv test/resources/plots/block_config.json sorted",
     "test": "mocha --require intelli-espower-loader --recursive ./test/"
   },
   "keywords": [
@@ -21,7 +21,6 @@
   "license": "MIT",
   "dependencies": {
     "args": "^5.0.0",
-    "canvas": "^2.3.1",
     "d3-node": "^2.1.0",
     "papaparse": "^4.6.3"
   },
