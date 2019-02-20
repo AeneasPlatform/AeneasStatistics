@@ -4,7 +4,8 @@ const argums = require('args')
 const file_ops = require('../src/file_ops')
 const array_ops = require('../src/array_ops')
 const ownership_parser = require('../src/parsing/block_ownership_parser')
-const dist_builder = require('../src/plots/block_ownership_builder')
+const balance_builder = require('../src/plots/balance_ownership_builder')
+const block_builder = require('../src/plots/mined_block_ownership_builder')
 
 function main() {
   
@@ -31,11 +32,29 @@ function main() {
     const configPath = sub[1] == '' ? 'test/resources/plots/block_config.json' : sub[1];
 
     const config = JSON.parse(file_ops.readFile(configPath));
-    if (dist_builder.BlockDistributionBuilder.validateConfig(config))
+    if (balance_builder.BlockDistributionBuilder.validateConfig(config))
       throw new Error("Config parsing error.");
     
     if(file_ops.exists(csvFilePath)) {
-      const builder = new dist_builder.BlockDistributionBuilder(csvFilePath, config);
+      const builder = new balance_builder.BalanceDistributionBuilder(csvFilePath, config);
+      const data = builder.transformData();
+      file_ops.writeToFile(builder.buildPlot(), "report.html");
+    } else {  // unlikely for branch predictor
+      throw new Error("Some file does not exists");
+    }
+  });
+  argums.command('balance-address-plot', 
+                 'Creates two plots where blocks and balances distribution will be demonstrated', 
+                 (name, sub, options) => {
+    const csvFilePath = sub[0]; 
+    const configPath = sub[1] == '' ? 'test/resources/plots/block_config.json' : sub[1];
+
+    const config = JSON.parse(file_ops.readFile(configPath));
+    if (block_builder.MinedBlockDistributionBuilder.validateConfig(config))
+      throw new Error("Config parsing error.");
+    
+    if(file_ops.exists(csvFilePath)) {
+      const builder = new block_builder.MinedBlockDistributionBuilder(csvFilePath, config);
       const data = builder.transformData();
       file_ops.writeToFile(builder.buildPlot(), "report.html");
     } else {  // unlikely for branch predictor

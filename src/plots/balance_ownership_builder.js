@@ -1,9 +1,9 @@
 'use strict'
 
-const builder = require('./abstract_plot_builder')
-const file_ops = require('../file_ops')
+const builder    = require('./abstract_plot_builder')
+const file_ops   = require('../file_ops')
 const csv_parser = require('papaparse')
-const d3Node = require('d3-node')
+const d3Node     = require('d3-node')
 
 /**
  * 
@@ -11,7 +11,7 @@ const d3Node = require('d3-node')
  * @param {string} reportPath : path to CSV report file.
  * @param {object} config : valid configuration of plot details. 
  */
-class BlockDistributionBuilder extends builder.AbstractPlotBuilder {
+class BalanceDistributionBuilder extends builder.AbstractPlotBuilder {
   constructor(reportPath, config) {
     super();
     this.reportPath = reportPath;
@@ -87,4 +87,4 @@ class BlockDistributionBuilder extends builder.AbstractPlotBuilder {
   }
 }
 
-module.exports.BlockDistributionBuilder = BlockDistributionBuilder;
+module.exports.BalanceDistributionBuilder = BalanceDistributionBuilder;
